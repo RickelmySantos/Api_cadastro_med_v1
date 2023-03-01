@@ -12,7 +12,8 @@ create table doctor(
     numero varchar(20),
     uf char(2) not null,
     cidade varchar(100) not null,
-
+    phone varchar(11),
+    ativo tinyint,
     primary key(id)
 
 );

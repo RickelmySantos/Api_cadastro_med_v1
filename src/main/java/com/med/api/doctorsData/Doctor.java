@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 
 @Entity(name = "doctor")
-@Table(name = "Doctor")
+@Table(name = "Doctors")
 public class Doctor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,13 +26,14 @@ public class Doctor {
 	private Specialty specialty;
 	@Embedded
 	private Address address;
-
+	private Boolean ativo;
+	
 	public Doctor() {
 
 	}
 
-	public Doctor(Long id, String name, String email, String phone, String crm, Specialty specialty, Address address) {
-		super();
+	public Doctor(Long id, String name, String email, String phone, String crm, Specialty specialty, Address address, Boolean ativo) {
+		this.ativo = true;
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -44,6 +45,7 @@ public class Doctor {
 
 	
 	public Doctor(MedicalRecords dados) {
+		this.ativo = true;
 		this.name = dados.name();
 		this.email = dados.email();
 		this.phone = dados.phone();
@@ -107,6 +109,14 @@ public class Doctor {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setActive(Boolean active) {
+		this.ativo = active;
+	}
 
 	@Override
 	public String toString() {
@@ -123,6 +133,11 @@ public class Doctor {
 		if(dados.adress() != null) {
 			this.address.updatephone(dados.adress());
 		}
+	}
+
+	public void excluir() {
+		this.ativo = false;
+		
 	}
 
 }
